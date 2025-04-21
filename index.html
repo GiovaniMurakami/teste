@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contador de Manas - MTG</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background: #1e1e1e;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .pool {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 5rem;
+        position: relative;
+        text-align: center;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      button {
+        padding: 1rem 2rem;
+        font-size: 1.5rem;
+        border: none;
+        border-radius: 0.5rem;
+        background: #444;
+        color: white;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #666;
+      }
+
+      .touch-zone {
+        position: absolute;
+        top: 0;
+        bottom: 4rem; /* deixa espaço para os botões de High Tide */
+        width: 50%;
+        z-index: 1;
+      }
+
+      .left {
+        left: 0;
+      }
+
+      .right {
+        right: 0;
+      }
+
+      .high-tide {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 1.2rem;
+        background: #006bb3;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+      }
+
+      .high-tide span {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pool" id="poolDisplay">
+      0
+      <div class="touch-zone left" id="leftTouch"></div>
+      <div class="touch-zone right" id="rightTouch"></div>
+      <div class="high-tide">
+        High Tides: <span id="highTideCount">0</span>
+        <button onclick="addHighTide()">+</button>
+        <button onclick="resetHighTide()">Reset</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button onclick="changeMana(-1)">-</button>
+      <button onclick="changeMana(1)">+</button>
+      <button onclick="resetMana()">Reset Mana</button>
+    </div>
+
+    <script>
+      let mana = 0;
+      let highTide = 0;
+
+      const poolDisplay = document.getElementById("poolDisplay");
+      const highTideDisplay = document.getElementById("highTideCount");
+
+      function updateDisplay() {
+        poolDisplay.firstChild.nodeValue = mana;
+        highTideDisplay.textContent = highTide;
+      }
+
+      function changeMana(amount) {
+        mana += amount;
+        if (mana < 0) mana = 0;
+        updateDisplay();
+      }
+
+      function resetMana() {
+        mana = 0;
+        updateDisplay();
+      }
+
+      function addHighTide() {
+        highTide++;
+        updateDisplay();
+      }
+
+      function resetHighTide() {
+        highTide = 0;
+        updateDisplay();
+      }
+
+      document
+        .getElementById("leftTouch")
+        .addEventListener("click", () => changeMana(-1));
+      document
+        .getElementById("rightTouch")
+        .addEventListener("click", () => changeMana(1));
+
+      updateDisplay();
+    </script>
+  </body>
+</html>

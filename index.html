@@ -50,17 +50,10 @@
       .touch-zone {
         position: absolute;
         top: 0;
-        bottom: 4rem; /* deixa espaço para os botões de High Tide */
+        bottom: 0;
         width: 50%;
         z-index: 1;
-      }
-
-      .left {
-        left: 0;
-      }
-
-      .right {
-        right: 0;
+        pointer-events: auto;
       }
 
       .high-tide {
@@ -71,6 +64,15 @@
         background: #006bb3;
         padding: 0.5rem 1rem;
         border-radius: 0.5rem;
+        z-index: 2;
+      }
+
+      .left {
+        left: 0;
+      }
+
+      .right {
+        right: 0;
       }
 
       .high-tide span {

@@ -2,13 +2,11 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Contador de Manas - MTG</title>
     <style>
-      * {
-        touch-action: manipulation;
-      }
-
       body {
         margin: 0;
         font-family: sans-serif;
@@ -16,7 +14,7 @@
         color: white;
         display: flex;
         flex-direction: column;
-        height: 100dvh;
+        height: 100vh;
         overflow: hidden;
       }
 
@@ -60,6 +58,14 @@
         pointer-events: auto;
       }
 
+      .left {
+        left: 0;
+      }
+
+      .right {
+        right: 0;
+      }
+
       .high-tide {
         position: absolute;
         bottom: 1rem;
@@ -69,14 +75,6 @@
         padding: 0.5rem 1rem;
         border-radius: 0.5rem;
         z-index: 2;
-      }
-
-      .left {
-        left: 0;
-      }
-
-      .right {
-        right: 0;
       }
 
       .high-tide span {
@@ -91,14 +89,12 @@
       <div class="touch-zone right" id="rightTouch"></div>
       <div class="high-tide">
         High Tides: <span id="highTideCount">0</span>
+        <button onclick="removeHighTide()">-</button>
         <button onclick="addHighTide()">+</button>
-        <button onclick="resetHighTide()">Reset</button>
       </div>
     </div>
 
     <div class="controls">
-      <button onclick="changeMana(-1)">-</button>
-      <button onclick="changeMana(1)">+</button>
       <button onclick="resetMana()">Reset Mana</button>
     </div>
 
@@ -114,9 +110,8 @@
         highTideDisplay.textContent = highTide;
       }
 
-      function changeMana(amount) {
-        mana += amount;
-        if (mana < 0) mana = 0;
+      function changeMana() {
+        mana += 1 + highTide;
         updateDisplay();
       }
 
@@ -130,17 +125,19 @@
         updateDisplay();
       }
 
-      function resetHighTide() {
-        highTide = 0;
-        updateDisplay();
+      function removeHighTide() {
+        if (highTide > 0) {
+          highTide--;
+          updateDisplay();
+        }
       }
 
       document
         .getElementById("leftTouch")
-        .addEventListener("click", () => changeMana(-1));
+        .addEventListener("click", () => resetMana());
       document
         .getElementById("rightTouch")
-        .addEventListener("click", () => changeMana(1));
+        .addEventListener("click", () => changeMana());
 
       updateDisplay();
     </script>

@@ -115,6 +115,13 @@
         updateDisplay();
       }
 
+      function decreaseMana() {
+        if (mana > 0) {
+          mana--;
+          updateDisplay();
+        }
+      }
+
       function resetMana() {
         mana = 0;
         updateDisplay();
@@ -134,7 +141,7 @@
 
       document
         .getElementById("leftTouch")
-        .addEventListener("click", () => resetMana());
+        .addEventListener("click", () => decreaseMana());
       document
         .getElementById("rightTouch")
         .addEventListener("click", () => changeMana());
